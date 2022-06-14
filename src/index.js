@@ -17,14 +17,14 @@ export const deepEqual = (obj, anotherObject) => {
  * их различить берем метод Array.isArray и он на массивах вернет тру
  */
 export const deepCopy = (obj) => {
-    if (obj === null || obj === undefined || typeof obj !== 'object') {
+    if (typeof obj !== 'object' || obj === null || obj === undefined) {
         return obj
     }
 
     if (Array.isArray(obj)) {
         return obj.map((value) => typeof value === 'object' ? deepCopy(value) : value)
     } else {
-        return Object.entries(obj).reduce((array, [key, value]) => (array[key] = deepCopy(value), array), {});
+        return Object.entries(obj).reduce((arr, [key, value]) => (arr[key] = deepCopy(value), arr), {});
     }
 };
 
