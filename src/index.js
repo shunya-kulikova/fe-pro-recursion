@@ -34,10 +34,11 @@ export const deepCopy = (obj) => {
  */
 export const getAllObjectKeys = (obj) => {
     return Object.entries(obj).reduce((array, [key, value]) => {
-        array.push(key);
         if (typeof value === 'object') {
             array.push(key, ...getAllObjectKeys(value));
-        };
+        } else {
+            array.push(key);
+        }
         return [...new Set(array)];
     })
 };
