@@ -7,9 +7,9 @@ export const deepEqual = (obj, anotherObject) => {
     return Object.entries(obj).every(function ([key, value]) {
         if (typeof value === 'object') {
             return deepEqual(value, anotherObject[key]);
-          } else {
+        } else {
             return value === anotherObject[key];
-          }
+        }
     })
 };
 
@@ -26,7 +26,7 @@ export const deepCopy = (obj) => {
     }
 
     if (Array.isArray(obj)) {
-        return obj.map((value) => typeof value === 'object' ? deepCopy(value) : value)
+        return obj.map(element => deepCopy(element));
     } else {
         return Object.entries(obj).reduce((arr, [key, value]) => (arr[key] = deepCopy(value), arr), {});
     }
