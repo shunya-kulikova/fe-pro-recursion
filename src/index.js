@@ -5,11 +5,7 @@
  */
 export const deepEqual = (obj, anotherObject) => {
     return Object.entries(obj).every(function ([key, value]) {
-        if (typeof value === 'object') {
-            return deepEqual(value, anotherObject[key]);
-        } else {
-            return value === anotherObject[key];
-        }
+        return anotherObject[key] && typeof value === 'object' ? deepEqual(value, anotherObject[key]) : value === anotherObject[key];
     })
 };
 
