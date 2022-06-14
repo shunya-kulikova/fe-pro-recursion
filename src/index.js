@@ -5,7 +5,11 @@
  */
 export const deepEqual = (obj, anotherObject) => {
     return Object.entries(obj).every(function ([key, value]) {
-        return anotherObject[key] && typeof value === 'object' ? deepEqual(value, anotherObject[key]) : value === anotherObject[key];
+        if (typeof value === 'object') {
+            return deepEqual(value, anotherObject[key]);
+          } else {
+            return value === anotherObject[key];
+          }
     })
 };
 
@@ -34,10 +38,9 @@ export const deepCopy = (obj) => {
  */
 export const getAllObjectKeys = (obj) => {
     return Object.entries(obj).reduce((array, [key, value]) => {
+        array.push(key);
         if (typeof value === 'object') {
             array.push(key, ...getAllObjectKeys(value));
-        } else {
-            array.push(key);
         }
         return [...new Set(array)];
     })
